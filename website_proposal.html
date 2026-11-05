@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Research Core Website Proposal</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;700;800&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a scrolling talk. One full-width section per slide, left-aligned text column, example links as cards. Side rail shows position. */
+:root{
+  --bg:#F3F5F4;
+  --surface:#FFFFFF;
+  --fg:#16211E;
+  --muted:#56635F;
+  --line:#D3DBD8;
+  --accent:#1E6B60;
+  --accent-soft:#E1EEEB;
+  --band:#E9EEEC;
+  --display:"Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --body:"Public Sans", "Segoe UI", Arial, sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#111917; --surface:#18221F; --fg:#E6ECEA; --muted:#9AA8A3; --line:#2C3935;
+    --accent:#5FC1B1; --accent-soft:#1B2F2B; --band:#151F1C; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#111917; --surface:#18221F; --fg:#E6ECEA; --muted:#9AA8A3; --line:#2C3935;
+  --accent:#5FC1B1; --accent-soft:#1B2F2B; --band:#151F1C; color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:clamp(17px,1.25vw + 8px,22px);line-height:1.55}
+
+section{
+  min-height:88vh;
+  display:flex;align-items:center;
+  border-top:1px solid var(--line);
+  padding-block:clamp(56px,9vh,110px);
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));
+  scroll-margin-top:0;
+}
+section:nth-of-type(even){background:var(--band)}
+.inner{width:100%;max-width:1080px;margin:0 auto;display:grid;gap:1.6em;min-width:0}
+
+.eyebrow{font-family:var(--mono);font-size:.68em;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:500}
+h1,h2{font-family:var(--display);text-wrap:balance;margin:0;letter-spacing:-.015em;line-height:1.08}
+h1{font-size:clamp(2.4rem,5.4vw,4.6rem);font-weight:800;max-width:16ch}
+h2{font-size:clamp(1.9rem,3.8vw,3.2rem);font-weight:700;max-width:22ch}
+p{margin:0;max-width:62ch}
+.lede{font-size:1.15em;color:var(--muted);max-width:52ch}
+
+ul.points{list-style:none;margin:0;padding:0;display:grid;gap:.75em;max-width:62ch}
+ul.points li{position:relative;padding-left:1.4em}
+ul.points li::before{content:"";position:absolute;left:0;top:.62em;width:.5em;height:.5em;border-radius:50%;background:var(--accent)}
+
+/* The Need: four numbered rows that jump to their sections */
+.needs{list-style:none;margin:0;padding:0;display:grid;border-top:1px solid var(--line)}
+.needs a{display:grid;grid-template-columns:3.2em 1fr auto;align-items:baseline;gap:.6em;padding:.85em 0;border-bottom:1px solid var(--line);color:inherit;text-decoration:none}
+.needs .n{font-family:var(--mono);color:var(--accent);font-size:.85em}
+.needs .t{font-size:1.12em;font-weight:500;min-width:0}
+.needs .go{font-family:var(--mono);font-size:.7em;color:var(--muted)}
+.needs a:hover .t,.needs a:focus-visible .t{color:var(--accent)}
+
+.label{font-family:var(--mono);font-size:.68em;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:.4em}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:1em}
+.card{display:grid;gap:.45em;align-content:start;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:1.1em 1.2em 1.15em;color:inherit;text-decoration:none;transition:border-color .15s, transform .15s;min-width:0}
+.card:hover,.card:focus-visible{border-color:var(--accent);transform:translateY(-2px)}
+@media (prefers-reduced-motion: reduce){.card{transition:none}.card:hover{transform:none}}
+.card .src{font-family:var(--mono);font-size:.62em;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.card .ttl{font-family:var(--display);font-weight:700;font-size:1.1em;line-height:1.25}
+.card .desc{font-size:.84em;color:var(--muted)}
+.card .url{font-family:var(--mono);font-size:.66em;color:var(--muted);overflow-wrap:anywhere;margin-top:.2em}
+.card .url::after{content:" ↗";color:var(--accent)}
+.card.ours{background:var(--accent-soft)}
+
+.callout{border-left:3px solid var(--accent);padding:.2em 0 .2em 1em;font-size:1.05em;max-width:58ch}
+
+a:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+
+/* Position rail */
+.rail{position:fixed;right:max(14px, calc(env(safe-area-inset-right, 0px) + 14px));top:50%;transform:translateY(-50%);display:grid;gap:10px;z-index:5}
+.rail a{width:10px;height:10px;border-radius:50%;border:1.5px solid var(--muted);display:block}
+.rail a.on{background:var(--accent);border-color:var(--accent)}
+@media (max-width:820px){.rail{display:none}}
+
+.hint{font-family:var(--mono);font-size:.62em;color:var(--muted)}
+kbd{font-family:var(--mono);border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:0 .35em;background:var(--surface)}
+@media (hover:none){.hint{display:none}}
+</style>
+</head>
+<body>
+
+<nav class="rail" aria-label="Sections"></nav>
+
+<section id="intro">
+  <div class="inner">
+    <!-- <div class="eyebrow">Proposal for leadership review</div> -->
+    <h1>IOURMR Research Core Website Proposal 2.0</h1>
+    <p class="lede">An external research website, hosted on GitHub Pages, to share our research products alongside the official university page.</p>
+    <!-- <p class="hint">Press <kbd>↓</kbd> / <kbd>↑</kbd> to move between sections</p> -->
+  </div>
+</section>
+
+<section id="background">
+  <div class="inner">
+    <!-- <div class="eyebrow">Background</div> -->
+    <h2>What we are proposing</h2>
+    <ul class="points">
+      <li>The university page remains the <a href="https://www.uidaho.edu/health-medical-professions/idaho-underserved-rural-medical/research-evaluation-office" target="_blank">official source</a> for our unit's identity, people, and contact information while SHAMP intranet hosts <a href="https://vandalsuidaho.sharepoint.com/sites/InsideUI-SHAMP/SitePages/Student-Research-Resources.aspx" target="_blank">student resources.</a></li>
+      <li>A separate research site hosts what the university page is not built for: reports, interactive products, code, and student projects.</li>
+      <li>The research site is co-branded and links back to the university page.</li>
+      <li>Hosting on GitHub Pages is free and maintained by our team, with no university server or IT tickets.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="need">
+  <div class="inner">
+    <!-- <div class="eyebrow">The need</div> -->
+    <h2>The Need</h2>
+    <ol class="needs">
+      <li><a href="#timely"><span class="n">1.</span><span class="t">Timely communication of research products</span></a></li>
+      <li><a href="#library"><span class="n">2.</span><span class="t">A searchable, accessible library of publications and technical reports</span></a></li>
+      <li><a href="#reproducible"><span class="n">3.</span><span class="t">Transparent, reproducible science through shared analysis code, tools, and data</span></a></li>
+      <li><a href="#skills"><span class="n">4.</span><span class="t">A repository of projects that demonstrates the work of trainees and students</span></a></li>
+    </ol>
+  </div>
+</section>
+
+<section id="example">
+  <div class="inner">
+    <h2>What it looks like</h2>
+    <div class="label">Website front</div>
+    <div class="cards">
+      <a class="card" href="https://healthcare-allocation-lab.github.io/" target="_blank" rel="noopener">
+        <span class="ttl">Parker Healthcare Allocation Lab</span>
+        <span class="desc">General public communication</span>
+        <span class="url">healthcare-allocation-lab.github.io/</span>
+      </a>
+    </div>
+    <div class="label">Associated github repo</div>
+    <div class="cards">
+      <a class="card" href="https://github.com/Healthcare-Allocation-Lab/" target="_blank" rel="noopener">
+        <span class="ttl">GitHub Repo for the lab</span>
+        <span class="desc">Sharing of software and source code</span>
+        <span class="url">github.com/Healthcare-Allocation-Lab/</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="timely">
+  <div class="inner">
+    <div class="eyebrow">1. Timely communication</div>
+    <h2>Share research products as soon as they are ready</h2>
+    <ul class="points">
+      <li>Dashboards</li>
+      <li>Interactive reports</li>
+      <li>Particularly useful for geospatial modeling work</li>
+    </ul>
+    <div class="label">Example from our previous work</div>
+    <div class="cards">
+      <a class="card ours" href="https://storymaps.arcgis.com/stories/21a663bfe2f24605a7a28f6bc8750993" target="_blank" rel="noopener">
+        <span class="src">ArcGIS StoryMap</span>
+        <span class="ttl">Idaho Facilities Landscape</span>
+        <span class="desc">Interactive map-based story from our preliminary results.</span>
+        <span class="url">storymaps.arcgis.com/stories/21a663bf…</span>
+      </a>
+    </div>
+    <p class="callout">Products like this can be collected in one place and showcased on the research site.</p>
+  </div>
+</section>
+
+<section id="library">
+  <div class="inner">
+    <div class="eyebrow">2. Searchable library</div>
+    <h2>Publications and reports in one searchable library</h2>
+    <ul class="points">
+      <li>Visitors can click through to the actual paper or report.</li>
+      <li>Searchable by year, author, or topic.</li>
+    </ul>
+    <div class="label">Example sites</div>
+    <div class="cards">
+      <a class="card" href="https://familymedicine.uw.edu/chws/resources/wohw/workforce-data/reports-briefs/" target="_blank" rel="noopener">
+        <span class="src">University of Washington</span>
+        <span class="ttl">Center for Health Workforce Studies: Reports &amp; Briefs</span>
+        <span class="desc">Data snapshots, data briefs, and survey findings, each linked to its PDF.</span>
+        <span class="url">familymedicine.uw.edu/chws/…/reports-briefs/</span>
+      </a>
+      <a class="card" href="https://med.stanford.edu/boussard-lab/recent-publications.html" target="_blank" rel="noopener">
+        <span class="src">Stanford Medicine</span>
+        <span class="ttl">Boussard Lab: Recent Publications</span>
+        <span class="desc">Lab publication list with links to each paper.</span>
+        <span class="url">med.stanford.edu/boussard-lab/recent-publications.html</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="reproducible">
+  <div class="inner">
+    <div class="eyebrow">3. Transparency and reproducible science</div>
+    <h2>Share the code, tools, and data behind our findings</h2>
+    <ul class="points">
+      <li>Analysis code published alongside each paper.</li>
+      <li>Others can check, reuse, and build on our methods.</li>
+    </ul>
+    <div class="label">Example of a lab repository with reproducible code</div>
+    <div class="cards">
+      <a class="card" href="https://github.com/su-boussard-lab" target="_blank" rel="noopener">
+        <span class="src">GitHub · Stanford</span>
+        <span class="ttl">Boussard Lab repositories</span>
+        <span class="desc">Code for the lab's published studies, one repository per project.</span>
+        <span class="url">github.com/su-boussard-lab</span>
+      </a>
+      <a class="card" href="https://github.com/su-boussard-lab/dementia-opioid-initiation" target="_blank" rel="noopener">
+        <span class="src">GitHub · Single project</span>
+        <span class="ttl">Dementia and opioid initiation</span>
+        <span class="desc">One study's analysis notebooks, shared openly.</span>
+        <span class="url">github.com/su-boussard-lab/dementia-opioid-initiation</span>
+      </a>
+      <a class="card" href="https://github.com/greenelab/lab-website-template" target="_blank" rel="noopener">
+        <span class="src">GitHub · Template</span>
+        <span class="ttl">Lab Website Template</span>
+        <span class="desc">Free, open template many labs use to build a GitHub Pages site.</span>
+        <span class="url">github.com/greenelab/lab-website-template</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="inner">
+    <div class="eyebrow">4. Demonstration of researcher skills</div>
+    <h2>A record of what our staff and students can do</h2>
+    <p class="callout">A project repository serves as a record of the demonstrated skills of our research staff and students, which they can include in their CV or personal website.</p>
+    <div class="label">Project repository examples</div>
+    <div class="cards">
+      <a class="card" href="https://sydykova.com/" target="_blank" rel="noopener">
+        <span class="src">Personal site</span>
+        <span class="ttl">Dariya Sydykova</span>
+        <span class="desc">Researcher site linking to individual projects.</span>
+        <span class="url">sydykova.com</span>
+      </a>
+      <a class="card" href="https://github.com/dariyasydykova/open_projects/tree/master/ROC_animation" target="_blank" rel="noopener">
+        <span class="src">GitHub · Single project</span>
+        <span class="ttl">ROC curve animations</span>
+        <span class="desc">R scripts and animations explaining ROC and precision-recall curves.</span>
+        <span class="url">github.com/dariyasydykova/open_projects/…/ROC_animation</span>
+      </a>
+      <a class="card ours" href="https://yesols.github.io/aou-workshop/" target="_blank" rel="noopener">
+        <span class="src">In-house · GitHub Pages</span>
+        <span class="ttl">All of Us workshop site</span>
+        <span class="desc">Course site we already build and maintain with Quarto.</span>
+        <span class="url">yesols.github.io/aou-workshop</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="summary">
+  <div class="inner">
+    <h2>Summary</h2>
+    <ul class="points">
+      <li>Timely communication of research products</li>
+      <li>Searchable library of publications and reports</li>
+      <li>Transparent, reproducible science</li>
+      <li>Demonstration of researcher and student skills</li>
+      <li>Greater visibility in search beyond the university's pages, using the same open tools as leading research labs</li>
+    </ul>
+  </div>
+</section>
+
+<script>
+(function(){
+  var secs=[].slice.call(document.querySelectorAll('section'));
+  var rail=document.querySelector('.rail');
+  var dots=secs.map(function(s){
+    var a=document.createElement('a');a.href='#'+s.id;
+    var t=(s.querySelector('.eyebrow')||{}).textContent||s.id;
+    a.setAttribute('aria-label',t);a.title=t;rail.appendChild(a);return a;
+  });
+  function current(){
+    var mid=window.innerHeight*0.4,idx=0;
+    secs.forEach(function(s,i){if(s.getBoundingClientRect().top<=mid)idx=i;});
+    return idx;
+  }
+  function mark(){var c=current();dots.forEach(function(d,i){d.classList.toggle('on',i===c);});}
+  window.addEventListener('scroll',mark,{passive:true});mark();
+  function go(i){i=Math.max(0,Math.min(secs.length-1,i));secs[i].scrollIntoView({block:'start'});}
+  document.addEventListener('keydown',function(e){
+    if(e.metaKey||e.ctrlKey||e.altKey)return;
+    var k=e.key;
+    if(k==='ArrowDown'||k==='PageDown'||k===' '&&!e.shiftKey||k==='ArrowRight'){e.preventDefault();go(current()+1);}
+    else if(k==='ArrowUp'||k==='PageUp'||k===' '&&e.shiftKey||k==='ArrowLeft'){e.preventDefault();go(current()-1);}
+    else if(k==='Home'){e.preventDefault();go(0);}
+    else if(k==='End'){e.preventDefault();go(secs.length-1);}
+  });
+  if(location.hash){var t=document.getElementById(location.hash.slice(1));if(t)t.scrollIntoView();}
+})();
+</script>
+
+</body>
+</html>
